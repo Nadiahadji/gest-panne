@@ -1,20 +1,22 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const jwt = require('jsonwebtoken')
 
 const app = express()
 
-const adminRoute = require('./routes/admin')
-const siteRoute = require('./routes/siteRoute')
-const sequelize = require('./database/db')
-
+const router = require('./routes')
+const sequelize = require('./config/config.js')
+const Site = require('./models/site')
+const Eq = require('./models/equipment')
 
 app.use(bodyParser.json())
 
 
-app.use('/sites', siteRoute)
-app.use(adminRoute)
+app.use('/api', router)
 
-sequelize.sync()
+Eq.belongsTo(Site)
+
+sequelize.sync({ force : true})
     .then(
         res => {
             app.listen(3000)

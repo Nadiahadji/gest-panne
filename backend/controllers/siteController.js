@@ -18,7 +18,6 @@ exports.getSite = (req, res, next) => {
 
 exports.storeSite = (req, res, next) => {
     const site = { 
-        site_id : 1,
         site_name : req.body.name,
         site_location : req.body.location
     }
@@ -36,7 +35,6 @@ exports.updateSite = (req,res,next) => {
     
     Site.findOne({where : { id : siteid}})
         .then(site => {
-            site.site_id =  7
             site.site_name = req.body.name
             site.site_location = req.body.location
             site.save()
