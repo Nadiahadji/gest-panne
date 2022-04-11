@@ -32,11 +32,21 @@ exports.login = (req, res, next) => {
             if(!isEqual) (
                 res.status(401).json({message : "password invalid"})
             )
-            const token = jwt.sign({ email : loadedUser.email, id : loadedUser.id},
+            const token = jwt.sign({ 
+                email : loadedUser.email, 
+                id : loadedUser.id,
+                role : loadedUser.role
+                },
                 "secretprivatekey",
                 { expiresIn : "1h"}
             )
-            res.status(200).json({token : token})
+            res.status(200).json({
+            	token : token, 
+            	email : loadedUser.email,
+            	id : loadedUser.id,
+            	fullname : loadedUser.fullName,
+            	role : loadedUser.role
+            })
         })
         .catch(err => {
             console.log(err)
