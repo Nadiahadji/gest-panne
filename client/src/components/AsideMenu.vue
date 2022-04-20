@@ -2,19 +2,19 @@
     
     <ul class="menu-sidebar bg-dark">
       <li>
-        <a href="#" class="active">
+        <router-link :to="{name : 'admin' }" class="active" @click="active">
           <i class="fa-solid fa-house"></i>
           Dashboard
-        </a>
+        </router-link>
       </li>
       <li>
-        <a href="#">
+        <router-link :to="{ name : 'allSites' }" class="item" @click="active">
         <i class="fa-solid fa-sitemap"></i> 
         Sites
-        </a>
+        </router-link>
       </li>
       <li>
-        <a href="#">
+        <a href="#" @click="active">
           <i class="fa-solid fa-desktop"></i>
           Equipements
         </a>
@@ -36,15 +36,22 @@
 
 <script>
 export default {
-    name : "AsideMenu"
+    name : "AsideMenu",
+    methods : {
+      active(e) {
+        const item = document.querySelectorAll("li a")
+        item.forEach(element => {
+          element.classList.remove("active")
+        });
+        console.log(e.target.classList.add("active"))
+      }
+    }
 }
 </script>
 
 <style scoped>
   .menu-sidebar {
-    position: fixed;
-    top: 57px;
-    left: 0;
+    position: relative;
     width: 240px;
     height: 100%;
     padding: 3rem 0;

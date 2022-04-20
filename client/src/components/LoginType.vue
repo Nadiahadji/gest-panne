@@ -46,6 +46,7 @@ export default {
             })
             .then(res => {
                 localStorage.setItem('token', res.data.token)
+                //if(User.responseAfterLogin(res))
                 this.$router.push({ name : 'admin'})
             })
             .catch(err => console.log(err.status))

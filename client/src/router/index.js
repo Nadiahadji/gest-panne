@@ -20,6 +20,26 @@ const routes = [
     path: '/admin-dashboard',
     name: 'admin',
     component: AdminDashboard
+  },
+  {
+    path : "/tous-les-sites",
+    name : "allSites",
+    component : () => import('../components/AllSites.vue')
+  },
+  {
+    path : "/admin-dashboard/ajouter-site",
+    name : "addSite",
+    component : () => import('../components/SiteType')
+  },
+  {
+    path : "/admin-dashboard/update-site/:id",
+    name : "updateSite",
+    component : () => import('../components/SiteUpdate')
+  },
+  {
+    path : "/admin-dashboard/ajouter-equipement",
+    name : "addEquip",
+    component : () => import('../components/EquipType')
   }
 ]
 

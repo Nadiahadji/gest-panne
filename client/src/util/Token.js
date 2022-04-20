@@ -13,8 +13,7 @@ class Token {
     }
 
     decode(payload) {
-        //return JSON.parse(atob(payload));
-        return JSON.parse(payload);
+        return JSON.parse(atob(payload));
     }
 }
 

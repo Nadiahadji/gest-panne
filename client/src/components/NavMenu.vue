@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 sticky-top shadow">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow">
         <div class="container-fluid">
             <a class="navbar-brand" href="#"><span class="bg-warning">G</span> panne</a>
             <ul class="navbar-nav mr-auto">
