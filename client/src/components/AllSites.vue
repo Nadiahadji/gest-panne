@@ -1,10 +1,13 @@
 <template>
-<div class="contaner-fluid">
+<div class="container-fluid">
   <h1 class="text-center mb-5">Liste  des Sites</h1>
-    <router-link :to="{ name : 'addSite'}" class="btn btn-info me-auto mb-2">
+  <div class="d-flex justify-content-between mb-3">
+    <router-link :to="{ name : 'addSite'}" class="btn btn-info me-auto">
         <i class="fas fa-plus"></i>
       Nouveau site
     </router-link>
+    <input type="text" @change="filterBySite" class="form-control filter" placeholder="Tapez un nom du site">
+  </div>
   <table class="table shadow">
       <thead class="table-dark">
           <tr>
@@ -15,7 +18,7 @@
           </tr>
       </thead>
       <tbody>
-          <tr v-for="site in sites" :key="site.id">
+          <tr v-for="site in filterSites" :key="site.id">
             <td>{{ site.id }}</td>
             <td>{{ site.site_name }}</td>
             <td>{{ site.site_location }}</td>
@@ -45,27 +48,47 @@ export default {
     name : 'AllSites',
     data() {
       return {
-        sites : []
+        sites : [],
+        filter : "",
+        page: 1
+      }
+    },
+    computed :{
+      filterSites() {
+        return this.$store.getters.sites
       }
     },
     created() {
-      axios.get("http://localhost:3000/api/sites")
-        .then(res => {
-          console.log(res.data)
-          this.sites = res.data
-        })
-        .catch(err => console.log(err))
+      this.fetchSites()
+      // axios.get("http://localhost:3000/api/sites")
+      //   .then(res => {
+      //     console.log(res.data)
+      //     this.sites = res.data
+      //   })
+      //   .catch(err => console.log(err))
     },
     methods : {
+      fetchSites() {
+        this.$store.dispatch("loadSites", {page : 1, filter : this.filter})
+      },
+      filterBySite(e) {
+        this.filter = e.target.value
+        this.$store.dispatch("loadSites", {page : 1, filter : e.target.value})
+      },
       deleteSite(id) {
-        axios.delete(`http://localhost:3000/api/delete-site/${id}`)
-          .then(res => console.log(res.data))
-          .catch(err => console.log(err))
+          this.$store.dispatch("deleteSite", id)
+          this.$store.dispatch("loadSites", {page : this.page, filter : this.filter})
+      //   axios.delete(`http://localhost:3000/api/delete-site/${id}`)
+      //     .then(res => this.fetchSites())
+      //     .catch(err => console.log(err))
       }
     }
 }
 </script>
 
-<style>
-
+<style scoped>
+  .filter {
+    width : 12rem;
+    border-radius : 5px
+  }
 </style>

@@ -28,7 +28,7 @@ Job.belongsTo(User)
 Job.belongsTo(Trouble)
 
 
-sequelize.sync({ force : true})
+sequelize.sync()//{ force : true}
     .then(
         res => {
             app.listen(3000)

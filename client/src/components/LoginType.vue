@@ -40,16 +40,17 @@ export default {
     },
     methods : {
         handleSubmit() {
-            axios.post("http://localhost:3000/api/login", {
-                email : this.email,
-                password : this.password
-            })
-            .then(res => {
-                localStorage.setItem('token', res.data.token)
-                //if(User.responseAfterLogin(res))
-                this.$router.push({ name : 'admin'})
-            })
-            .catch(err => console.log(err.status))
+            this.$store.dispatch("login", {password : this.password, email : this.email})
+            // axios.post("http://localhost:3000/api/login", {
+            //     email : this.email,
+            //     password : this.password
+            // })
+            // .then(res => {
+            //     localStorage.setItem('token', res.data.token)
+            //     //if(User.responseAfterLogin(res))
+            //     this.$router.push({ name : 'admin'})
+            // })
+            // .catch(err => console.log(err.status))
         }
     }
 }

@@ -40,6 +40,11 @@ const routes = [
     path : "/admin-dashboard/ajouter-equipement",
     name : "addEquip",
     component : () => import('../components/EquipType')
+  },
+  {
+    path : "/admin-dashboard/users",
+    name : "users",
+    //component : () => import('../components/EquipType')
   }
 ]
 

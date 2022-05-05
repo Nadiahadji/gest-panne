@@ -8,7 +8,7 @@
         </router-link>
       </li>
       <li>
-        <router-link :to="{ name : 'allSites' }" class="item" @click="active">
+        <router-link :to="{ name : 'allSites' }" @click="active">
         <i class="fa-solid fa-sitemap"></i> 
         Sites
         </router-link>
@@ -30,6 +30,12 @@
           <i class="fa-solid fa-briefcase"></i>
           Travaux
         </a>
+      </li>
+      <li>
+        <router-link :to="{name : 'users' }" @click="active">
+          <i class="fa-solid fa-users"></i>
+          Utilisateurs
+        </router-link>
       </li>                                     
     </ul> 
 </template>
@@ -43,7 +49,7 @@ export default {
         item.forEach(element => {
           element.classList.remove("active")
         });
-        console.log(e.target.classList.add("active"))
+        e.target.classList.toggle("active")
       }
     }
 }
@@ -51,10 +57,10 @@ export default {
 
 <style scoped>
   .menu-sidebar {
-    position: relative;
+    position: fixed;
     width: 240px;
     height: 100%;
-    padding: 3rem 0;
+    padding: 2rem 0;
   }
 
 li {

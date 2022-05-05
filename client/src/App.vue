@@ -1,15 +1,9 @@
-<template>
-
-        
+<template>     
   <nav-menu />
-  <div class="d-flex">
-    <div class="side-menu">
-      <aside-menu />
-    </div>
-    <div class="content mt-3">
-      <div class="container">
-        <router-view/>
-      </div>
+  <aside-menu />
+  <div class="content mt-3">
+    <div class="container">
+      <router-view/>
     </div>
   </div>
 </template>
@@ -39,8 +33,9 @@ body {
 }
 
 .content {
-  width : 100%;
+  width : calc(100% - 240px);
   height: 100%;
+  margin-left: 240px
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

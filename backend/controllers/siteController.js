@@ -1,11 +1,28 @@
 
 const Site = require('../models/site')
-
+const Sequelize = require('sequelize')
 
 exports.index = (req, res, next) => {
-    Site.findAll()
-        .then(sites => res.status(200).json(sites))
-        .catch(err => console.log(err))
+    // Site.findAll()
+    //     .then(sites => res.status(200).json(sites))
+    //     .catch(err => console.log(err))
+    const Op = Sequelize.Op
+    const currentPage = req.query.page || 1
+    const perPage = 8
+    const siteName = req.query.site || ""
+    Site.findAndCountAll({
+        where : { "site_name" : {
+                [Op.like] : `${siteName}%`
+            }
+        },
+        offset : (currentPage - 1 ) * perPage,
+        limit : perPage,
+        order : [
+            ["id", "DESC"]
+        ]
+    }).then((result) => {
+        res.status(200).json(result)
+    }).catch(err => console.log(err))
 }
 
 exports.getSite = (req, res, next) => {
@@ -14,6 +31,10 @@ exports.getSite = (req, res, next) => {
     Site.findByPk(siteId)
         .then(site => res.status(200).json(site))
         .catch(err => console.log(err))
+}
+
+exports.findSite = (req, res, next) => {
+
 }
 
 exports.storeSite = (req, res, next) => {
