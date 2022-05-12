@@ -1,8 +1,22 @@
 const Eq = require('../models/equipment')
-
+const Site = require('../models/site')
+const sequelize = require('sequelize')
 
 exports.index = (req, res, next) => {
-    Eq.findAll()
+    const Op = sequelize.Op
+    const currentPage = req.body.page || 1
+    const perPage = 8
+    const filter = req.body.filter || ""
+    Eq.findAndCountAll({
+        include: Site,
+        where : {
+            name : {
+                [Op.like] : `${filter}%`
+            }
+        },
+        setoff : (currentPage - 1) * perPage,
+        limit : perPage
+    })
         .then(eq => {
             res.status(200).json(eq)
         })
@@ -20,7 +34,7 @@ exports.getEquipement = (req, res, next) => {
 
 exports.storeEq = (req, res, next) => {
     const eq = {
-        Mid : req.body.mid,
+        Mid : req.body.ref,
         name : req.body.name,
         desc : req.body.desc,
         eq_type : req.body.type,

@@ -1,5 +1,5 @@
 <template>     
-  <nav-menu />
+  <nav-menu v-if="true"/>
   <aside-menu />
   <div class="content mt-3">
     <div class="container">
@@ -10,12 +10,22 @@
 
 <script>
 
-import NavMenu from '@/components/NavMenu.vue'
-import AsideMenu from '@/components/AsideMenu.vue'
+import NavMenu from '@/components/menus/NavMenu.vue'
+import AsideMenu from '@/components/menus/AsideMenu.vue'
 export default {
   components : {
     AsideMenu,
     NavMenu
+  },
+  data() {
+    return {
+      isLogged : false
+    }
+  },
+  methods : {
+      isLoggedin() {
+        return  !!localStorage.getItem('token')
+      }
   }
 }
 </script>

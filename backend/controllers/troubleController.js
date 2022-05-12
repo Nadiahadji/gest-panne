@@ -1,10 +1,29 @@
 
 const Trouble = require('../models/trouble')
-
+const User = require('../models/user')
+const sequelize = require('sequelize')
 
 exports.index = (req, res, next) => {
-    const troubles = Trouble.findAll()
-    res.status(200).json(troubles)
+    const currentPage = req.query.page || 1
+    const filter = req.query.filter || ""
+    const perPage = 8
+    const Op = sequelize.Op
+    Trouble.findAndCountAll({
+        include : User,
+        where : {title : {
+            [Op.like] : `${filter}%`
+        }},
+        setoff : (currentPage - 1) * perPage,
+        limit : perPage,
+        order : [
+            ["id" , "DESC"]
+        ]
+    })
+    .then(troubles => {
+        console.log(troubles)
+        res.status(200).json(troubles)
+    })
+    .catch(err => console.log(err))
 }
 
 exports.getTrouble = (req, res, next) => {
@@ -29,10 +48,9 @@ exports.storeTrouble = (req, res, next) => {
 
 exports.updateTrouble= (req, res, next) => {
     const id = req.params.id
-
     Trouble.findByPk(id)
             .then(trouble => {
-                Trouble.title = req.body.title
+                trouble.title = req.body.title
                 trouble.status = req.body.status
                 trouble.desc= req.body.desc
                 trouble.save()

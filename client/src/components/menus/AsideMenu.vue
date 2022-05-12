@@ -14,22 +14,22 @@
         </router-link>
       </li>
       <li>
-        <a href="#" @click="active">
+        <router-link :to="{ name : 'equipements' }" @click="active">
           <i class="fa-solid fa-desktop"></i>
           Equipements
-        </a>
+        </router-link>
       </li>
       <li>
-        <a href="#">
+        <router-link :to="{ name : 'troubles'}">
           <i class="fa-solid fa-ban"></i>
           Pannes
-        </a>
+        </router-link>
       </li>
       <li>
-        <a href="">
+        <router-link :to="{ name : 'jobs' }">
           <i class="fa-solid fa-briefcase"></i>
           Travaux
-        </a>
+        </router-link>
       </li>
       <li>
         <router-link :to="{name : 'users' }" @click="active">

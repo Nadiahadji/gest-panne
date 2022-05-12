@@ -19,7 +19,7 @@
 <script>
 // @ is an alias to /src
 
-import LoginType from '@/components/LoginType.vue'
+import LoginType from '@/components/auth/LoginType.vue'
 
 export default {
   name: 'HomeView',

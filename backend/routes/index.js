@@ -43,13 +43,13 @@ router.get('/troubles', troubleController.index)
 router.get('/trouble/:id', troubleController.getTrouble)
 router.post('/new-trouble', troubleController.storeTrouble)
 router.put('/update-trouble/:id', troubleController.updateTrouble)
-router.delete('.delete-trouble/:id', troubleController.deleteTrouble)
+router.delete('/delete-trouble/:id', troubleController.deleteTrouble)
 
 //Job router
 router.get('/jobs', jobController.index)
 router.get('/job/:id', jobController.getJob)
 router.post('/new-job', jobController.storeJob)
 router.put('/update-job/:id', jobController.updateJob)
-router.delete('.delete-job/:id', jobController.deleteJob)
+router.delete('/delete-job/:id', jobController.deleteJob)
 
 module.exports = router;

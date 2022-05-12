@@ -7,8 +7,10 @@ export default {
         axios.post("http://localhost:3000/api/login", {email : email, password : password})
             .then((res) => {
                 const token = res.data.token
+                const id = res.data.id
                 localStorage.setItem('token', token)
-                context.commit('setAuth', {token : {token, id : res.data.id}}) 
+                localStorage.setItem('userId', id)
+                context.commit('setAuth', {token : {token, id}}) 
             })
             .catch(err => console.log(err))
     },

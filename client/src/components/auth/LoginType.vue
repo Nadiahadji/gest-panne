@@ -41,6 +41,9 @@ export default {
     methods : {
         handleSubmit() {
             this.$store.dispatch("login", {password : this.password, email : this.email})
+                .then(() => {
+                    this.$router.push({name : "admin"})
+                })
             // axios.post("http://localhost:3000/api/login", {
             //     email : this.email,
             //     password : this.password
