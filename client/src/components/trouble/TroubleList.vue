@@ -19,6 +19,7 @@
               <th>Description</th>
               <th>Status</th>
               <th>Cree par</th>
+              <th>Date</th>
               <th>action</th>
           </tr>
       </thead>
@@ -30,6 +31,7 @@
             <td>{{ trouble.status }}</td>
             <td v-if="!!trouble.user">{{ trouble.user.fullName }}</td>
             <td v-else> - </td>
+            <td>{{ trouble.createdAt }}</td>
             <td>
                 <router-link 
                   :to="{ name : 'editPanne', params : {id : trouble.id}}"

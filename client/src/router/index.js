@@ -19,82 +19,89 @@ const routes = [
   {
     path: '/admin-dashboard',
     name: 'admin',
-    component: AdminDashboard
-  },
-  {
-    path : "/tous-les-sites",
-    name : "allSites",
-    component : () => import('../components/site/AllSites.vue')
-  },
-  {
-    path : "/admin-dashboard/ajouter-site",
-    name : "addSite",
-    component : () => import('../components/site/SiteType')
-  },
-  {
-    path : "/admin-dashboard/update-site/:id",
-    name : "updateSite",
-    component : () => import('../components/site/SiteUpdate')
-  },
-  {
-    path : "/admin-dashboard/equipements",
-    name : "equipements",
-    component : () => import('../components/equipements/Equipement')
-  },
-  {
-    path : "/admin-dashboard/ajouter-equipement",
-    name : "addEquip",
-    component : () => import('../components/equipements/EqType')
-  },
-  {
-    path : "/admin-dashboard/editer-equipement/:id",
-    name : "editEquip",
-    component : () => import('../components/equipements/EqUpdate')
-  },
-  {
-    path : "/admin-dashboard/pannes",
-    name : "troubles",
-    component : () => import('../components/trouble/TroubleList')
-  },
-  {
-    path : "/admin-dashboard/ajouter-panne",
-    name : "addPanne",
-    component : () => import('../components/trouble/TroubleType')
-  },
-  {
-    path : "/admin-dashboard/editer-panne/:id",
-    name : "editPanne",
-    component : () => import('../components/trouble/TroubleUpdate')
-  },
-  {
-    path : "/admin-dashboard/Travaux",
-    name : "jobs",
-    component : () => import('../components/jobs/JobList')
-  },
-  {
-    path : "/admin-dashboard/ajouter-travail",
-    name : "addJob",
-    component : () => import('../components/jobs/JobType')
-  },
-  {
-    path : "/admin-dashboard/editer-travail/:id",
-    name : "editJob",
-    component : () => import('../components/jobs/JobUpdate')
-  },
-  {
-    path : "/admin-dashboard/users",
-    name : "users",
-    component : () => import('../components/users/Users.vue')
-  },
-  {
-    path : "/admin-dashboard/nouveau-utilisateur",
-    name : "addUser",
-    component : () => import('../components/users/userType.vue')
-  },
-  {
-    path : "/admin-dashboard/update-user/:id",
-    name : "updateUser",
-    component : () => import('../components/users/userUpdate')
+    component: AdminDashboard,
+    children : [
+      {
+        path : "statistique",
+        name : "statistic",
+        component : () => import('../components/statistic/DashBoard.vue')
+      },
+      {
+        path : "tous-les-sites",
+        name : "allSites",
+        component : () => import('../components/site/AllSites.vue')
+      },
+      {
+        path : "ajouter-site",
+        name : "addSite",
+        component : () => import('../components/site/SiteType')
+      },
+      {
+        path : "update-site/:id",
+        name : "updateSite",
+        component : () => import('../components/site/SiteUpdate')
+      },
+      {
+        path : "equipements",
+        name : "equipements",
+        component : () => import('../components/equipements/Equipement')
+      },
+      {
+        path : "/admin-dashboard/ajouter-equipement",
+        name : "addEquip",
+        component : () => import('../components/equipements/EqType')
+      },
+      {
+        path : "editer-equipement/:id",
+        name : "editEquip",
+        component : () => import('../components/equipements/EqUpdate')
+      },
+      {
+        path : "/admin-dashboard/pannes",
+        name : "troubles",
+        component : () => import('../components/trouble/TroubleList')
+      },
+      {
+        path : "ajouter-panne",
+        name : "addPanne",
+        component : () => import('../components/trouble/TroubleType')
+      },
+      {
+        path : "editer-panne/:id",
+        name : "editPanne",
+        component : () => import('../components/trouble/TroubleUpdate')
+      },
+      {
+        path : "Travaux",
+        name : "jobs",
+        component : () => import('../components/jobs/JobList')
+      },
+      {
+        path : "ajouter-travail",
+        name : "addJob",
+        component : () => import('../components/jobs/JobType')
+      },
+      {
+        path : "/admin-dashboard/editer-travail/:id",
+        name : "editJob",
+        component : () => import('../components/jobs/JobUpdate')
+      },
+      {
+        path : "/admin-dashboard/users",
+        name : "users",
+        component : () => import('../components/users/Users.vue')
+      },
+      {
+        path : "nouveau-utilisateur",
+        name : "addUser",
+        component : () => import('../components/users/userType.vue')
+      },
+      {
+        path : "update-user/:id",
+        name : "updateUser",
+        component : () => import('../components/users/userUpdate')
+      },
+    ]
   },
 ]
 

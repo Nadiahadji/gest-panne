@@ -2,7 +2,7 @@
     
     <ul class="menu-sidebar bg-dark">
       <li>
-        <router-link :to="{name : 'admin' }" class="active" @click="active">
+        <router-link :to="{name : 'statistic' }" class="active" @click="active">
           <i class="fa-solid fa-house"></i>
           Dashboard
         </router-link>

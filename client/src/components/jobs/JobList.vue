@@ -19,6 +19,7 @@
               <th>Description</th>
               <th>Panne</th>
               <th>Intervenant</th>
+              <th>Date</th>
               <th>action</th>
           </tr>
       </thead>
@@ -29,6 +30,7 @@
             <td>{{ job.desc }}</td>
             <td>{{ job.trouble.title }}</td>
             <td>{{ job.user.fullName }}</td>
+            <td>{{ job.createdAt }}</td>
             <td>
                 <router-link 
                   :to="{ name : 'editJob', params : {id : job.id}}"
