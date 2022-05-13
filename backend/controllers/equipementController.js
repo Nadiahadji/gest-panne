@@ -4,9 +4,10 @@ const sequelize = require('sequelize')
 
 exports.index = (req, res, next) => {
     const Op = sequelize.Op
-    const currentPage = req.body.page || 1
+    const currentPage = req.query.page || 1
     const perPage = 8
-    const filter = req.body.filter || ""
+    const filter = req.query.filter || ""
+    console.log(filter)
     Eq.findAndCountAll({
         include: Site,
         where : {

@@ -9,7 +9,7 @@
     <input type="text" 
       class="form-control filter" 
       placeholder="Rechercher par equipment ..."
-      @change="filterEquip">
+      @change="filterEquipement">
   </div>
   <table class="table shadow">
       <thead class="table-dark">
@@ -74,7 +74,8 @@ export default {
       },
       filterEquipement(e) {
         this.filter = e.target.value
-        this.$store.dispatch("load", {page : this.page, filter : this.filter})
+        console.log(this.filter)
+        this.$store.dispatch("loadEquipements", {page : this.page, filter : this.filter})
       },
       deleteEq(id) {
           this.$store.dispatch("deleteEq", id)
