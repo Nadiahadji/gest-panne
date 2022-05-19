@@ -11,7 +11,8 @@ export default {
                     site : filter
                 }
             })
-            .then(res => {
+            .then((res) => {
+                console.log(res.data)
                 context.commit("setSite", res.data)
             })
             .catch(err => {

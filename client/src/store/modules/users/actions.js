@@ -14,12 +14,5 @@ export default {
                 context.commit('setUsers', res.data)
             })
             .catch(err => console.log(err))
-    },
-    setUser(context, payload) {
-        axios.get(`http://localhost:3000/api/user/${payload}`)
-            .then(res => {
-                context.commit('setUser', res.data)
-            })
-            .catch(err => console.log(err))
     }
 }

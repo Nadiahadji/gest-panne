@@ -44,6 +44,7 @@ export default {
                 .then(() => {
                     this.$router.push({name : "admin"})
                 })
+                .catch(err => console.log(err))
             // axios.post("http://localhost:3000/api/login", {
             //     email : this.email,
             //     password : this.password

@@ -49,6 +49,12 @@
 
   </table>
 </div>
+<div class="mt-5">
+  <PaginationMenu :totalPages="totalTroubles" 
+                  v-if="totalTroubles > 1"
+                  @currentPage="fetchPage"
+  />
+</div>
 </template>
 
 <script>
@@ -62,7 +68,11 @@ export default {
     },
     computed : {
       troubles() {
+        console.log(this.$store.getters.getTroubles)
         return this.$store.getters.getTroubles
+      },
+      totalTroubles() {
+        const pages = Math.ceil(this.$store.getters.totalTroubles)
       }
     },
     created() {
@@ -81,6 +91,10 @@ export default {
       deleteTrouble(id) {
           this.$store.dispatch("deleteTrouble", id)
           this.$store.dispatch("loadTroubles", {page : this.page, filter : this.filter})
+      },
+      fetchPage(num) {
+        console.log("num page : " + num)
+        this.$store.dispatch("loadTroubles", {page : num, filter : this.filter})
       }
     }
 }

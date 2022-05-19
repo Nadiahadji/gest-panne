@@ -9,12 +9,14 @@ import '@/assets/css/all.min.css'
 
 import NavMenu from '@/components/menus/NavMenu.vue'
 import AsideMenu from '@/components/menus/AsideMenu.vue'
+import PaginationMenu from '@/components/pagination/PaginationMenu.vue'
 
 
 const app = createApp(App)
 
 app.component("NavMenu", NavMenu)
 app.component("AsideMenu", AsideMenu)
+app.component("PaginationMenu", PaginationMenu)
 
 app.use(store)
 app.use(router)

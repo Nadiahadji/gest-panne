@@ -16,7 +16,6 @@ router.post('/login', authController.login)
 
 //Site router
 router.get('/sites', siteController.index)
-router.post('/sites', siteController.index)
 router.get('/site/:id', siteController.getSite)
 router.post('/new-site', siteController.storeSite)
 router.put('/edit-site/:id', siteController.updateSite)

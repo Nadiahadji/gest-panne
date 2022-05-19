@@ -4,7 +4,12 @@ import AdminDashboard from '../views/AdminDashboard.vue'
 
 const routes = [
   {
-    path: '/',
+    path: '/', redirect : '/admin-dashboard' ,
+    name: '/'
+  },
+  {
+    path: '/login' ,
+    meta : {requiresUnauth : true},
     name: 'home',
     component: HomeView
   },
@@ -18,11 +23,12 @@ const routes = [
   },
   {
     path: '/admin-dashboard',
+    meta : {requiresAuth : true},
     name: 'admin',
     component: AdminDashboard,
     children : [
       {
-        path : "statistique",
+        path : "",
         name : "statistic",
         component : () => import('../components/statistic/DashBoard.vue')
       },
@@ -103,6 +109,10 @@ const routes = [
       },
     ]
   },
+  {
+    path: '/:notfound(.*)',
+    component: () => import('../views/NotFound.vue')
+  }
 ]
 
 const router = createRouter({
@@ -110,13 +120,20 @@ const router = createRouter({
   routes
 })
 
-// router.beforeEach((to, from, next) => {
-//   const token = localStorage.getItem("token")
-//   if(!token && (to.path !== '/' && to.path !== '/about')) {
-//     next('/')
-//   }else {
-//     next()
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem("token")
+  if(!token && to.meta.requiresAuth) {
+    
+    console.log("login : " + token && to.meta.requiresUnauth)
+    next('/login')
+  }else if (token && to.meta.requiresUnauth){
+    //console.log(!!token )
+    console.log("admin " + to.meta.requiresAuth && token)
+    next('/admin-dashboard/')
+  }else {
+    console.log("test" + token)
+    next()
+  }
+})
 
 export default router

@@ -46,6 +46,12 @@
 
   </table>
 </div>
+<div class="mt-5">
+  <PaginationMenu :totalPages="totalUsers" 
+                  v-if="totalUsers > 1"
+                  @currentPage="fetchPage"
+  />
+</div>
 </template>
 
 <script>
@@ -60,6 +66,11 @@ export default {
     computed : {
       users() {
         return this.$store.getters.getUsers
+      },
+      totalUsers() {
+        console.log(this.$store.getters.totalUsers)
+        const pages = Math.ceil(this.$store.getters.totalUsers / 8)
+        return pages
       }
     },
     created() {
@@ -72,6 +83,10 @@ export default {
       filterUser(e) {
         this.filter = e.target.value
         this.$store.dispatch("setUsers", {page : this.page, filter : this.filter})
+      },
+      fetchPage(num) {
+        console.log("num page : " + num)
+        this.$store.dispatch("setUsers", {page : num, filter : this.filter})
       }
     }
 }

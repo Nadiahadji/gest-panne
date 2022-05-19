@@ -14,6 +14,14 @@ export default {
             })
             .catch(err => console.log(err))
     },
+    getAuth(context, payload) {
+        axios.get(`http://localhost:3000/user/${payload}`)
+            .then((res) => {
+                user = res.data
+                context.commit("setAuth", {user : user})
+            })
+            .catch((err) => console.log(err))
+    },
     logout(context) {
         localStorage.removeItem('token')
         context.commit('setAuth', {token : null, user : null})

@@ -48,6 +48,12 @@
 
   </table>
 </div>
+<div class="mt-5">
+  <PaginationMenu :totalPages="totalEq" 
+                  v-if="totalEq > 1"
+                  @currentPage="fetchPage"
+  />
+</div>
 </template>
 
 <script>
@@ -62,6 +68,10 @@ export default {
     computed : {
       equipements() {
         return this.$store.getters.getEquipements
+      },
+      totalEq() {
+        const pages = Math.ceil(this.$store.getters.totalEq)
+        return pages
       }
     },
     created() {
@@ -80,6 +90,10 @@ export default {
       deleteEq(id) {
           this.$store.dispatch("deleteEq", id)
           this.$store.dispatch("loadEquipements", {page : this.page, filter : this.filter})
+      },
+      fetchPage(num) {
+        console.log("num page : " + num)
+        this.$store.dispatch("loadEquipements", {page : num, filter : this.filter})
       }
     }
 }

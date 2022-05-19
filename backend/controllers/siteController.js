@@ -1,12 +1,12 @@
 
 const Site = require('../models/site')
-const Sequelize = require('sequelize')
+const { Op } = require('sequelize')
 
 exports.index = (req, res, next) => {
     // Site.findAll()
     //     .then(sites => res.status(200).json(sites))
     //     .catch(err => console.log(err))
-    const Op = Sequelize.Op
+    //const Op = Sequelize.Op
     const currentPage = req.query.page || 1
     const perPage = 8
     const siteName = req.query.site || ""

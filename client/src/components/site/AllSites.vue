@@ -18,8 +18,8 @@
           </tr>
       </thead>
       <tbody>
-          <tr v-for="site in filterSites" :key="site.id">
-            <td>{{ site.id }}</td>
+          <tr v-for="site, index in filterSites" :key="site.id">
+            <td>{{ ((page * 8)- 8 ) + index + 1}}</td>
             <td>{{ site.site_name }}</td>
             <td>{{ site.site_location }}</td>
             <td>
@@ -39,6 +39,12 @@
 
   </table>
 </div>
+<div class="mt-5">
+  <PaginationMenu :totalPages="totalSites" 
+                  v-if="totalSites > 1"
+                  @currentPage="fetchPage"
+  />
+</div>
 </template>
 
 <script>
@@ -50,12 +56,19 @@ export default {
       return {
         sites : [],
         filter : "",
-        page: 1
+        page: 1,
       }
     },
     computed :{
       filterSites() {
-        return this.$store.getters.sites
+        const sites = this.$store.getters.sites
+        return sites
+      },
+      totalSites() {
+        console.log("total des sites : " + this.$store.getters.totalSites)
+        const items = this.$store.getters.totalSites
+        const total = Math.ceil(items / 8)
+        return total
       }
     },
     created() {
@@ -81,6 +94,11 @@ export default {
       //   axios.delete(`http://localhost:3000/api/delete-site/${id}`)
       //     .then(res => this.fetchSites())
       //     .catch(err => console.log(err))
+      },
+      fetchPage(num) {
+        console.log("num page : " + num)
+        this.page = num
+        this.$store.dispatch("loadSites", {page : num, filter : this.filter})
       }
     }
 }
