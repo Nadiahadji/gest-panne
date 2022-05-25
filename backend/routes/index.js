@@ -43,6 +43,7 @@ router.get('/trouble/:id', troubleController.getTrouble)
 router.post('/new-trouble', troubleController.storeTrouble)
 router.put('/update-trouble/:id', troubleController.updateTrouble)
 router.delete('/delete-trouble/:id', troubleController.deleteTrouble)
+router.post('/troubleDetail', troubleController.addDetails)
 
 //Job router
 router.get('/jobs', jobController.index)

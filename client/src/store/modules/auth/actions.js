@@ -1,29 +1,29 @@
 import axios from 'axios'
 
 export default {
-    login(context, payload) {
+    async login(context, payload) {
         const email = payload.email
         const password = payload.password
-        axios.post("http://localhost:3000/api/login", {email : email, password : password})
-            .then((res) => {
-                const token = res.data.token
-                const id = res.data.id
-                localStorage.setItem('token', token)
-                localStorage.setItem('userId', id)
-                context.commit('setAuth', {token : {token, id}}) 
-            })
-            .catch(err => console.log(err))
+        const response = await axios.post("http://localhost:3000/api/login", {email : email, password : password})
+
+        const token = response.data.token
+        const id = response.data.id
+        localStorage.setItem('token', token)
+        localStorage.setItem('userId', id)
+        context.commit('setAuth', {token : {token, id}}) 
+    
     },
-    getAuth(context, payload) {
-        axios.get(`http://localhost:3000/user/${payload}`)
-            .then((res) => {
-                user = res.data
+    async setAuth(context, payload) {
+        const response = await axios.get(`http://localhost:3000/api/user/${payload}`)
+            //.then((res) => {
+                const user = response.data
                 context.commit("setAuth", {user : user})
-            })
-            .catch((err) => console.log(err))
+            //})
+            //.catch((err) => console.log(err))
     },
     logout(context) {
         localStorage.removeItem('token')
+        localStorage.removeItem('userId')
         context.commit('setAuth', {token : null, user : null})
     }
 }

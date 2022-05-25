@@ -10,6 +10,7 @@
                 class="form-control form-control-lg"  
                 placeholder="name@example.com">
         </div>
+        <small v-if="errors.email" class="text-danger">{{ errors.email }}</small>
         <div class="mb-3">
             <label class="form-label">Mot de passe</label>
             <input type="password" 
@@ -20,7 +21,11 @@
         <div class="d-grid">
             <button type="submit"
                 class="btn btn-primary form-control form-control-lg"
-                >Connexion
+                >
+                <div v-if="isLoading" class="spinner-border spinner-border-sm text-white" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                Connexion
                 </button>
         </div>
     </form>
@@ -35,16 +40,31 @@ export default {
     data() {
         return {
             email : "",
-            password : ""
+            password : "",
+            errors : {},
+            isLoading : false
         }
     },
     methods : {
-        handleSubmit() {
-            this.$store.dispatch("login", {password : this.password, email : this.email})
-                .then(() => {
-                    this.$router.push({name : "admin"})
-                })
-                .catch(err => console.log(err))
+        async handleSubmit() {
+            const email = this.email
+            const password = this.password
+            this.errors = []
+            if(!this.email){
+                this.errors.email = "Entrer une addresse mail valide"
+            }
+            if(!this.errors.email && !this.errors.password) {
+                this.isLoading = true
+                this.$store.dispatch("login", {password : password, email : email})
+                    .then(() => {
+                        this.$store.dispatch("setAuth", localStorage.getItem("userId"))
+                    })
+                    .then(() => {
+                        this.isLoading = false
+                        this.$router.push({name : "admin"})
+                    })
+                    .catch(err => console.log(err))
+            }
             // axios.post("http://localhost:3000/api/login", {
             //     email : this.email,
             //     password : this.password

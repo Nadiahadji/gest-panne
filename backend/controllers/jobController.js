@@ -11,6 +11,12 @@ exports.index = (req, res, next) => {
 
     Job.findAndCountAll({
         include : [User, Trouble],
+        attributes : [
+            'id',
+            'title',
+            'desc',
+            [sequelize.fn('date_format', sequelize.col('jobs.createdAt'), '%d-%m-%Y %H:%i:%s'), 'createdAt']
+        ],
         where : {title : {
             [Op.like] : `${filter}%`
         }},

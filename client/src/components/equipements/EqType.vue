@@ -18,11 +18,12 @@
             </div>
             <div class="mb-3">
             <label for="type" class="form-label">Type</label>
-            <input 
-                type="text" 
+            <select
                 class="form-control" 
                 id="type"
                 v-model="type">
+                <option v-for="option, index  in options" :key="index">{{option}}</option>
+            </select>
             </div>
             <div class="mb-3">
                 <label for="site" class="form-label">Site</label>{{site}}
@@ -65,7 +66,8 @@ export default {
             ref : "",
             type : "",
             site : "",
-            desc : ""
+            desc : "",
+            options : ["Hardware", "Software"]
         }
     },
     methods : {
@@ -78,7 +80,6 @@ export default {
                 desc: this.desc,
                 siteId : +this.site
             }).then((res) => {
-                console.log(res.data)
                 this.$router.push({ name : "equipements"})
             }).catch(err => console.log(err))
         },

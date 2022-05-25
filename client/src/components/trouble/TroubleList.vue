@@ -16,7 +16,6 @@
           <tr>
               <th>ID</th>
               <th>title</th>
-              <th>Description</th>
               <th>Status</th>
               <th>Cree par</th>
               <th>Date</th>
@@ -27,12 +26,16 @@
           <tr v-for="trouble in troubles" :key="trouble.id">
             <td>{{ trouble.id }}</td>
             <td>{{ trouble.title }}</td>
-            <td>{{ trouble.desc }}</td>
             <td>{{ trouble.status }}</td>
             <td v-if="!!trouble.user">{{ trouble.user.fullName }}</td>
             <td v-else> - </td>
             <td>{{ trouble.createdAt }}</td>
             <td>
+                <router-link 
+                  :to="{ name : 'detailPanne', params : {id : trouble.id}}"
+                  class="btn btn-primary btn-sm me-1">
+                  Detail
+                </router-link>
                 <router-link 
                   :to="{ name : 'editPanne', params : {id : trouble.id}}"
                   class="btn btn-success btn-sm me-1">

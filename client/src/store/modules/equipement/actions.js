@@ -11,7 +11,6 @@ export default {
                 }
             })
             .then(res => {
-                console.log(res.data)
                 context.commit("setEquipements", res.data)
             })
             .catch(err => {

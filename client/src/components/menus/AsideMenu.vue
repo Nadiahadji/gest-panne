@@ -1,19 +1,19 @@
 <template>
     
     <ul class="menu-sidebar bg-dark">
-      <li>
-        <router-link :to="{name : 'statistic' }" class="active" @click="active">
+      <li v-if="rule === 'admin'">
+        <router-link :to="{name : 'statistic' }" class="side-menu active" @click="active">
           <i class="fa-solid fa-house"></i>
           Dashboard
         </router-link>
       </li>
-      <li>
-        <router-link :to="{ name : 'allSites' }" @click="active">
+      <li v-if="rule === 'admin'">
+        <router-link class="side-menu" :to="{ name : 'allSites' }" @click="active">
         <i class="fa-solid fa-sitemap"></i> 
         Sites
         </router-link>
       </li>
-      <li>
+      <li v-if="rule === 'admin'">
         <router-link :to="{ name : 'equipements' }" @click="active">
           <i class="fa-solid fa-desktop"></i>
           Equipements
@@ -25,13 +25,13 @@
           Pannes
         </router-link>
       </li>
-      <li>
+      <li v-if="rule === 'admin' || rule === 'helpdesk'">
         <router-link :to="{ name : 'jobs' }">
           <i class="fa-solid fa-briefcase"></i>
           Travaux
         </router-link>
       </li>
-      <li>
+      <li v-if="rule === 'admin'">
         <router-link :to="{name : 'users' }" @click="active">
           <i class="fa-solid fa-users"></i>
           Utilisateurs
@@ -43,13 +43,27 @@
 <script>
 export default {
     name : "AsideMenu",
+    data() {
+      return {
+        rule : ""
+      }
+    },
+    async created() {
+      let id = localStorage.getItem("userId")
+      await this.$store.dispatch('setAuth', id)
+      const user = this.$store.getters.getAuth
+      this.rule = user.role
+    },
     methods : {
       active(e) {
-        const item = document.querySelectorAll("li a")
+        const item = document.querySelectorAll("li a.side-menu")
+        console.log(item)
         item.forEach(element => {
           element.classList.remove("active")
+          console.log('removed')
         });
-        e.target.classList.toggle("active")
+        console.log("add")
+        e.target.classList.add("active")
       }
     }
 }

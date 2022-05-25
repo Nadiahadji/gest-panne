@@ -6,18 +6,24 @@ exports.login = (req, res, next) => {
     const email = req.body.email
     const password = req.body.password
     let loadedUser
-    User.findOne({email : email})
+    User.findOne({where : {email : email}})
         .then(user => {
             if(!user) {
-                return res.status(401).json({message : "user invalid"})
+                return res.status(403).json({message : "user invalid"})
+                // const error = new Error('user invalid.');
+                // error.statusCode = 401;
+                // throw error;
             }
             loadedUser = user
             return bcrypt.compare(password, user.password)
         })
         .then(isEqual => {
-            if(!isEqual) (
-                res.status(401).json({message : "password invalid"})
-            )
+            if(!isEqual) {
+                return res.status(403).json({message : "password invalid"})
+                // const error = new Error('password invalid!');
+                // error.statusCode = 401;
+                // throw error;
+            }
             const token = jwt.sign({ 
                 email : loadedUser.email, 
                 id : loadedUser.id,
@@ -32,7 +38,12 @@ exports.login = (req, res, next) => {
             })
         })
         .catch(err => {
-            console.log(err)
-            next()
+            // const error = new Error(err)
+            // error.codeStatus = 422
+            // throw error
+            if (!err.statusCode) {
+                err.statusCode = 500;
+            }
+            next(err);
         })
 }

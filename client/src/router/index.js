@@ -23,6 +23,7 @@ const routes = [
   },
   {
     path: '/admin-dashboard',
+    redirect : "/admin-dashboard/",
     meta : {requiresAuth : true},
     name: 'admin',
     component: AdminDashboard,
@@ -71,6 +72,11 @@ const routes = [
         path : "ajouter-panne",
         name : "addPanne",
         component : () => import('../components/trouble/TroubleType')
+      },
+      {
+        path : "detail-panne/:id",
+        name : "detailPanne",
+        component : () => import('../components/trouble/TroubleDetail')
       },
       {
         path : "editer-panne/:id",
@@ -123,15 +129,11 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem("token")
   if(!token && to.meta.requiresAuth) {
-    
-    console.log("login : " + token && to.meta.requiresUnauth)
     next('/login')
   }else if (token && to.meta.requiresUnauth){
-    //console.log(!!token )
-    console.log("admin " + to.meta.requiresAuth && token)
     next('/admin-dashboard/')
   }else {
-    console.log("test" + token)
+    
     next()
   }
 })

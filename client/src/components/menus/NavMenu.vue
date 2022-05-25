@@ -14,7 +14,8 @@
                     </a>
                     <ul class="dropdown-menu open" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item" href="#">Profile</a></li>
-                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                        <li><a class="dropdown-item" href="#">Changer mot de passe</a></li>
+                        <li><a class="dropdown-item" href="#" @click="logout">Logout</a></li>
                     </ul>     
                 </li>
             </ul>
@@ -27,10 +28,20 @@ export default {
     name : 'NavMenue',
     data() {
         return {
-            userName : "user",
+            //userName : "user",
         }
     },
     computed : {
+        userName() {
+            const user = this.$store.getters.getAuth
+            if (user)
+                return user.fullName
+            return "user"
+        }
+    },
+    created () {
+        this.getUser()
+        
         // userName() {
         //     this.getUser(localStorage.getItem('userId'))
         //     console.log(localStorage.getItem('userId'))
@@ -42,9 +53,14 @@ export default {
         // }
     },
     methods : {
-        getUser(id) {
-            this.$store.dispatch('setUser', id)
-        } 
+        getUser() {
+            let id = localStorage.getItem("userId")
+            this.$store.dispatch('setAuth', id)
+        },
+        logout() {
+            this.$store.dispatch("logout")
+            this.$router.push({ path : "/"})
+        }
     }
 }
 </script>

@@ -70,7 +70,7 @@ export default {
         return this.$store.getters.getEquipements
       },
       totalEq() {
-        const pages = Math.ceil(this.$store.getters.totalEq)
+        const pages = Math.ceil(this.$store.getters.totalEq / 8)
         return pages
       }
     },
@@ -84,7 +84,6 @@ export default {
       },
       filterEquipement(e) {
         this.filter = e.target.value
-        console.log(this.filter)
         this.$store.dispatch("loadEquipements", {page : this.page, filter : this.filter})
       },
       deleteEq(id) {
@@ -92,7 +91,6 @@ export default {
           this.$store.dispatch("loadEquipements", {page : this.page, filter : this.filter})
       },
       fetchPage(num) {
-        console.log("num page : " + num)
         this.$store.dispatch("loadEquipements", {page : num, filter : this.filter})
       }
     }

@@ -11,7 +11,7 @@ export default {
                 }
             })
             .then(res => {
-                console.log(res.data)
+                console.log("troubles response : " + res.data)
                 context.commit("setTroubles", res.data)
             })
             .catch(err => {

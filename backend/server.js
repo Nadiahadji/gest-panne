@@ -10,6 +10,7 @@ const sequelize = require('./config/config.js')
 const Site = require('./models/site')
 const Eq = require('./models/equipment')
 const Trouble = require("./models/trouble")
+const TroubleDetail = require("./models/troubleDetail")
 const Job = require('./models/job')
 const User = require('./models/user')
 
@@ -26,9 +27,9 @@ Eq.belongsTo(Site)
 Trouble.belongsTo(User)
 Job.belongsTo(User)
 Job.belongsTo(Trouble)
+Trouble.hasMany(TroubleDetail)
 
-
-sequelize.sync()//{ force : true}
+sequelize.sync({ altr : true })//{ force : true}
     .then(
         res => {
             app.listen(3000)

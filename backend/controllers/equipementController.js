@@ -7,7 +7,6 @@ exports.index = (req, res, next) => {
     const currentPage = req.query.page || 1
     const perPage = 8
     const filter = req.query.filter || ""
-    console.log(filter)
     Eq.findAndCountAll({
         include: Site,
         where : {
@@ -15,7 +14,7 @@ exports.index = (req, res, next) => {
                 [Op.like] : `${filter}%`
             }
         },
-        setoff : (currentPage - 1) * perPage,
+        offset : (currentPage - 1) * perPage,
         limit : perPage
     })
         .then(eq => {
