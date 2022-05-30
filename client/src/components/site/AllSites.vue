@@ -30,9 +30,31 @@
                 </router-link>
                 <button 
                   class="btn btn-danger btn-sm"
-                  @click="deleteSite(site.id)"
+                   data-bs-toggle="modal" 
+                   data-bs-target="#Modal"
                 >Supprimer
                 </button>
+                <!-- Modal -->
+<div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalConfirmation">Confirmation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Voulez vous vraiment supprimer ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" 
+                class="btn btn-primary" 
+                @click="deleteSite(site.id)"
+        >Supprimer</button>
+      </div>
+    </div>
+  </div>
+</div>
             </td>
         </tr>
       </tbody>
@@ -45,6 +67,7 @@
                   @currentPage="fetchPage"
   />
 </div>
+
 </template>
 
 <script>
@@ -65,8 +88,8 @@ export default {
         return sites
       },
       totalSites() {
-        console.log("total des sites : " + this.$store.getters.totalSites)
         const items = this.$store.getters.totalSites
+        console.log("total des sites : " + items)
         const total = Math.ceil(items / 8)
         return total
       }
@@ -82,21 +105,18 @@ export default {
     },
     methods : {
       fetchSites() {
-        this.$store.dispatch("loadSites", {page : 1, filter : this.filter})
+        this.$store.dispatch("loadSites", {page : this.page, filter : this.filter})
       },
       filterBySite(e) {
         this.filter = e.target.value
         this.$store.dispatch("loadSites", {page : 1, filter : e.target.value})
       },
       deleteSite(id) {
-          this.$store.dispatch("deleteSite", id)
-          this.$store.dispatch("loadSites", {page : this.page, filter : this.filter})
-      //   axios.delete(`http://localhost:3000/api/delete-site/${id}`)
-      //     .then(res => this.fetchSites())
-      //     .catch(err => console.log(err))
+        const modal = document.getElementById("Modal")
+        modal.classList.toggle("show")
+        //axios.delete(`http://localhost:3000/api/delete-site/${id}`)
       },
       fetchPage(num) {
-        console.log("num page : " + num)
         this.page = num
         this.$store.dispatch("loadSites", {page : num, filter : this.filter})
       }

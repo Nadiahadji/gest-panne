@@ -23,13 +23,13 @@ const routes = [
   },
   {
     path: '/admin-dashboard',
-    redirect : "/admin-dashboard/",
+    redirect : '/admin-dashboard/statistic',
     meta : {requiresAuth : true},
     name: 'admin',
     component: AdminDashboard,
     children : [
       {
-        path : "",
+        path : "statistic",
         name : "statistic",
         component : () => import('../components/statistic/DashBoard.vue')
       },

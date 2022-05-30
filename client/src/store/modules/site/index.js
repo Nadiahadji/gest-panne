@@ -5,8 +5,7 @@ import getters from '@/store/modules/site/getters'
 export default {
     state() {
         return {
-            sites : [],
-            total : 0
+            sites : []
         }
     },
     mutations,

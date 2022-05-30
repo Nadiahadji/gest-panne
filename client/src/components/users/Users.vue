@@ -18,7 +18,7 @@
               <th>Utilisateur</th>
               <th>Email</th>
               <th>Privillage</th>
-              <th>Etat</th>
+              <th>Actif</th>
               <th>action</th>
           </tr>
       </thead>
@@ -28,18 +28,15 @@
             <td>{{ user.fullName }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user.role }}</td>
-            <td v-if="user.isActive">actif</td>
-            <td v-else>inactif</td>
+            <td>
+              <input type="checkbox" :checked="user.isActive" @click="toggleStatus(user.isActive, user.id)"/>
+              </td>
             <td>
                 <router-link 
                   :to="{ name : 'updateUser', params : { id : user.id}}"
                   class="btn btn-success btn-sm me-1">
                   Modifier
                 </router-link>
-                <button 
-                  class="btn btn-danger btn-sm"
-                >Supprimer
-                </button>
             </td>
         </tr>
       </tbody>
@@ -55,6 +52,9 @@
 </template>
 
 <script>
+
+import axios from 'axios'
+
 export default {
     name : 'Users',
     data() {
@@ -68,7 +68,6 @@ export default {
         return this.$store.getters.getUsers
       },
       totalUsers() {
-        console.log(this.$store.getters.totalUsers)
         const pages = Math.ceil(this.$store.getters.totalUsers / 8)
         return pages
       }
@@ -87,6 +86,11 @@ export default {
       fetchPage(num) {
         console.log("num page : " + num)
         this.$store.dispatch("setUsers", {page : num, filter : this.filter})
+      },
+      toggleStatus(status, id) {
+        axios.put(`http://localhost:3000/api/update-user/${id}`, {
+          isActive : !status
+        })
       }
     }
 }

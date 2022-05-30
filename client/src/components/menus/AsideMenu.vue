@@ -2,19 +2,19 @@
     
     <ul class="menu-sidebar bg-dark">
       <li v-if="rule === 'admin'">
-        <router-link :to="{name : 'statistic' }" class="side-menu active" @click="active">
+        <router-link :to="{name : 'statistic' }" class="side-menu">
           <i class="fa-solid fa-house"></i>
           Dashboard
         </router-link>
       </li>
       <li v-if="rule === 'admin'">
-        <router-link class="side-menu" :to="{ name : 'allSites' }" @click="active">
+        <router-link class="side-menu" :to="{ name : 'allSites' }">
         <i class="fa-solid fa-sitemap"></i> 
         Sites
         </router-link>
       </li>
       <li v-if="rule === 'admin'">
-        <router-link :to="{ name : 'equipements' }" @click="active">
+        <router-link :to="{ name : 'equipements' }">
           <i class="fa-solid fa-desktop"></i>
           Equipements
         </router-link>
@@ -32,7 +32,7 @@
         </router-link>
       </li>
       <li v-if="rule === 'admin'">
-        <router-link :to="{name : 'users' }" @click="active">
+        <router-link :to="{name : 'users' }">
           <i class="fa-solid fa-users"></i>
           Utilisateurs
         </router-link>
@@ -54,18 +54,6 @@ export default {
       const user = this.$store.getters.getAuth
       this.rule = user.role
     },
-    methods : {
-      active(e) {
-        const item = document.querySelectorAll("li a.side-menu")
-        console.log(item)
-        item.forEach(element => {
-          element.classList.remove("active")
-          console.log('removed')
-        });
-        console.log("add")
-        e.target.classList.add("active")
-      }
-    }
 }
 </script>
 
@@ -90,7 +78,7 @@ li a {
   padding: 2rem 1rem;
 }
 
-li a.active {
+li .router-link-active {
   background-color: var(--bs-orange);
 }
 

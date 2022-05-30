@@ -6,7 +6,8 @@ export default {
     state() {
         return {
             token : null,
-            user : null
+            user : null,
+            error : ""
         }
     },
     mutations,

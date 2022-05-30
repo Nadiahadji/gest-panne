@@ -24,6 +24,11 @@ exports.login = (req, res, next) => {
                 // error.statusCode = 401;
                 // throw error;
             }
+        }).then(() => {
+            
+            if(!loadedUser.isActive) {
+                return res.status(401).json({message : "Contactez l'administrateur ..."})
+            }
             const token = jwt.sign({ 
                 email : loadedUser.email, 
                 id : loadedUser.id,

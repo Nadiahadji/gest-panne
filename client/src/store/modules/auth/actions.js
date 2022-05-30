@@ -4,13 +4,18 @@ export default {
     async login(context, payload) {
         const email = payload.email
         const password = payload.password
-        const response = await axios.post("http://localhost:3000/api/login", {email : email, password : password})
-
-        const token = response.data.token
-        const id = response.data.id
-        localStorage.setItem('token', token)
-        localStorage.setItem('userId', id)
-        context.commit('setAuth', {token : {token, id}}) 
+        try {
+            const response = await axios.post("http://localhost:3000/api/login", {email : email, password : password})
+            const token = response.data.token
+            const id = response.data.id
+            localStorage.setItem('token', token)
+            localStorage.setItem('userId', id)
+            context.commit('setAuth', {token : {token, id}}) 
+        }catch(err) {
+            context.commit('setAuth', {error : "verifier botre email ou mot de passe sinon contactew votre admin"}) 
+            console.log("verifier botre email ou mot de passe sinon contactew votre admin")
+        }
+        
     
     },
     async setAuth(context, payload) {
