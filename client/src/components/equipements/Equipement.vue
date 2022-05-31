@@ -23,14 +23,15 @@
               <th>action</th>
           </tr>
       </thead>
-      <tbody>
-          <tr v-for="e in equipements" :key="e.id">
+      <tbody v-if="equipements">
+        <tr v-for="e in equipements" :key="e.id">
             <td>{{ e.id }}</td>
             <td>{{ e.Mid }}</td>
             <td>{{ e.name }}</td>
             <td>{{ e.desc }}</td>
             <td>{{ e.eq_type }}</td>
-            <td>{{ e.site.site_name }}</td>
+            <td v-if="e.site">{{ e.site.site_name }}</td>
+            <td v-else>-</td>
             <td>
                 <router-link 
                   :to="{ name : 'editEquip', params : {id : e.id}}"
@@ -45,8 +46,12 @@
             </td>
         </tr>
       </tbody>
-
   </table>
+  <div v-if="!equipements" class="d-flex justify-content-center">
+        <div class="spinner-border m-5" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
 </div>
 <div class="mt-5">
   <PaginationMenu :totalPages="totalEq" 
@@ -67,7 +72,9 @@ export default {
     },
     computed : {
       equipements() {
-        return this.$store.getters.getEquipements
+        const equipments = this.$store.getters.getEquipements
+        console.log(equipments)
+        return equipments
       },
       totalEq() {
         const pages = Math.ceil(this.$store.getters.totalEq / 8)
@@ -81,10 +88,12 @@ export default {
       
       fetchEquipements() {
         this.$store.dispatch("loadEquipements", {page : this.page, filter : this.filter})
+        this.$store.getters.getEquipements
       },
       filterEquipement(e) {
         this.filter = e.target.value
         this.$store.dispatch("loadEquipements", {page : this.page, filter : this.filter})
+        this.$store.getters.getEquipements
       },
       deleteEq(id) {
           this.$store.dispatch("deleteEq", id)

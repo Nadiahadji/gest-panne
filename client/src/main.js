@@ -4,8 +4,8 @@ import router from './router'
 import store from './store/index.js'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
-import 'bootstrap'
-//import 'bootstrap/dist/js/bootstrap.bundle'
+//import 'bootstrap'
+import 'bootstrap/dist/js/bootstrap.bundle'
 import '@/assets/css/all.min.css'
 
 import NavMenu from '@/components/menus/NavMenu.vue'

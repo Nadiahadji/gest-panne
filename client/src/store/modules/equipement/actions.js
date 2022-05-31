@@ -4,16 +4,15 @@ export default {
     loadEquipements(context, payload) {
         const page = payload.page
         const filter = payload.filter
-
         axios.get(`http://localhost:3000/api/equipements`, {params : {
-                    page : page,
-                    filter : filter
-                }
-            })
-            .then(res => {
+                        page : page,
+                        filter : filter
+                    }
+                })
+            .then((res) => {
                 context.commit("setEquipements", res.data)
             })
-            .catch(err => {
+        .catch(err => {
                 const error = new Error(err || "Probleme de recuperation des donnees")
                 throw error
             })
