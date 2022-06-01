@@ -1,10 +1,22 @@
 <template>
     
     <ul class="menu-sidebar bg-dark">
+      <li>
+        <router-link :to="{ name : 'troubles'}">
+          <i class="fa-solid fa-ban"></i>
+          Pannes
+        </router-link>
+      </li>
+      <li v-if="rule === 'admin' || rule === 'helpdesk'">
+        <router-link :to="{ name : 'jobs' }">
+          <i class="fa-solid fa-briefcase"></i>
+          Travaux
+        </router-link>
+      </li>
       <li v-if="rule === 'admin'">
         <router-link :to="{name : 'statistic' }" class="side-menu">
           <i class="fa-solid fa-house"></i>
-          Dashboard
+          Statistique
         </router-link>
       </li>
       <li v-if="rule === 'admin'">
@@ -17,18 +29,6 @@
         <router-link :to="{ name : 'equipements' }">
           <i class="fa-solid fa-desktop"></i>
           Equipements
-        </router-link>
-      </li>
-      <li>
-        <router-link :to="{ name : 'troubles'}">
-          <i class="fa-solid fa-ban"></i>
-          Pannes
-        </router-link>
-      </li>
-      <li v-if="rule === 'admin' || rule === 'helpdesk'">
-        <router-link :to="{ name : 'jobs' }">
-          <i class="fa-solid fa-briefcase"></i>
-          Travaux
         </router-link>
       </li>
       <li v-if="rule === 'admin'">

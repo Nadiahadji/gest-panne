@@ -56,12 +56,16 @@ exports.storeUser = (req, res, next) => {
 
 exports.updateUser = (req, res, next) => {
     const id = req.params.id
+    console.log(id)
     User.findByPk(id)
-        .then(user => {
+        .then(async (user) => {
             user.fullName = req.body.fullName
             user.email = req.body.email
             user.role = req.body.role
             user.isActive = req.body.isActive
+            let hashpass = await bcrypt.hash(req.body.password, 12)
+            user.password = hashpass
+    
             return user.save()
         })
         .then(result => res.status(200).json({message : `user ${result.fullName} updated`}))

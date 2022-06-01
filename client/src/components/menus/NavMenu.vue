@@ -14,7 +14,9 @@
                     </a>
                     <ul class="dropdown-menu open" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item" href="#">Profile</a></li>
-                        <li><a class="dropdown-item" href="#">Changer mot de passe</a></li>
+                        <li>
+                            <router-link class="dropdown-item" :to="{ name : 'changePassword' }">Changer mot de passe</router-link>
+                        </li>
                         <li><a class="dropdown-item" href="#" @click="logout">Logout</a></li>
                     </ul>     
                 </li>

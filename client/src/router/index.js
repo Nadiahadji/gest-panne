@@ -23,7 +23,7 @@ const routes = [
   },
   {
     path: '/admin-dashboard',
-    redirect : '/admin-dashboard/statistic',
+    redirect : '/admin-dashboard/pannes',
     meta : {requiresAuth : true},
     name: 'admin',
     component: AdminDashboard,
@@ -112,6 +112,11 @@ const routes = [
         path : "update-user/:id",
         name : "updateUser",
         component : () => import('../components/users/userUpdate')
+      },
+      {
+        path : "changer-mot-de-passe",
+        name : "changePassword",
+        component : () => import('../components/users/ChangePassword')
       },
     ]
   },
