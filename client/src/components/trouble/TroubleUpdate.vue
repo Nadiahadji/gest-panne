@@ -9,15 +9,6 @@
                 v-model="title">
         </div>
         <div class="mb-3">
-            <label for="desc" class="form-label">Description</label>
-            <textarea
-                rows="5"
-                class="form-control" 
-                id="ref"
-                v-model="desc">
-            </textarea>
-            </div>
-            <div class="mb-3">
             <label for="status" class="form-label">Status</label>
             <select
                 class="form-control" 
@@ -31,19 +22,6 @@
             </div>
         </form>
        
-       <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header">
-                    <img src="" class="rounded me-2" alt="...">
-                    <strong class="me-auto">Bootstrap</strong>
-                    <small>11 mins ago</small>
-                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-                <div class="toast-body">
-                    Hello, world! This is a toast message.
-                </div>
-            </div>
-        </div>
 </template>
 <script>
 import axios from 'axios'
@@ -54,26 +32,24 @@ export default {
         return {
             id : "",
             title : "",
-            desc : "",
             status : "",
-            options : ["En attente", "En reparatio", "resolu"]
+            options : ["En attente", "En reparation", "resolu"]
         }
     },
     created() {
         this.id = this.$route.params.id
         axios.get(`http://localhost:3000/api/trouble/${this.id}`)
             .then(res => {
-                this.title = res.data.title
-                this.status = res.data.status
-                this.desc = res.data.desc
+                this.title = res.data[0].title
+                this.status = res.data[0].status
             })
             .catch(err => console.log(err))
     },
     methods : {
-        handleSubmit() {                    
+        handleSubmit() {  
+            console.log(this.status)                  
             axios.put(`http://localhost:3000/api/update-trouble/${this.id}`, {
                 title : this.title,
-                desc : this.desc,
                 status : this.status,
             }).then(res => {
                 console.log(res.data)

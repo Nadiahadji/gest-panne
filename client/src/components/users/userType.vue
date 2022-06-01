@@ -26,7 +26,7 @@
             </div>
             <div class="mb-3">
                 <label for="rule" class="form-label">Fonction</label>
-                <select id="rule" v-model="rule">
+                <select id="rule" v-model="rule" class="form-control" >
                     <option value="admin">admin</option>
                     <option value="helpdesk">Technicien</option>
                     <option value="user">Operateur</option>
@@ -34,7 +34,7 @@
             </div>
             <div class="mb-3">
                 <label for="status" class="form-label">Etat</label>
-                <input type="checkbox" v-model="isActive"> Active
+                <input type="checkbox" v-model="isActive" class="form-control" > Active
             </div>
             <div class="d-grid">
                 <button type="submit" class="btn btn-primary">Enregistrer</button>

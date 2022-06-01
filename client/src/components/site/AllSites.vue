@@ -30,8 +30,8 @@
                 </router-link>
                 <button 
                   class="btn btn-danger btn-sm"
-                   data-bs-toggle="modal" 
-                   data-bs-target="#Modal"
+                  data-bs-toggle="modal" 
+                  data-bs-target="#Modal"
                 >Supprimer
                 </button>
                 <!-- Modal -->
@@ -43,12 +43,13 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Voulez vous vraiment supprimer ?
+        Voulez vous vraiment supprimer {{ site.site_name }}?
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" 
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">annuler</button>
+        <button type="button"
                 class="btn btn-primary" 
+                data-bs-dismiss="modal"
                 @click="deleteSite(site.id)"
         >Supprimer</button>
       </div>
@@ -72,12 +73,11 @@
 
 <script>
 import axios from 'axios'
-
+import bootstrap from 'bootstrap/dist/js/bootstrap.bundle'
 export default {
     name : 'AllSites',
     data() {
       return {
-        sites : [],
         filter : "",
         page: 1,
       }
@@ -112,9 +112,8 @@ export default {
         this.$store.dispatch("loadSites", {page : 1, filter : e.target.value})
       },
       deleteSite(id) {
-        const modal = document.getElementById("Modal")
-        modal.classList.toggle("show")
-        //axios.delete(`http://localhost:3000/api/delete-site/${id}`)
+        axios.delete(`http://localhost:3000/api/delete-site/${id}`)
+        this.fetchSites()
       },
       fetchPage(num) {
         this.page = num

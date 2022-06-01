@@ -23,7 +23,10 @@
                     id="trouble" 
                     class="form-control"
                     v-model="trouble">
-                    <option value="3">No network</option>    
+                    <option selected="true" disabled="disabled" value="">Choisir une panne</option>
+                    <option v-for="trouble in troubles" 
+                    :key="trouble.id" 
+                    :value="trouble.id">{{ trouble.title }}</option>    
                 </select>
             </div>
             
@@ -31,20 +34,6 @@
                 <button type="submit" class="btn btn-primary">Enregistrer</button>
             </div>
         </form>
-       
-       <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header">
-                    <img src="" class="rounded me-2" alt="...">
-                    <strong class="me-auto">Bootstrap</strong>
-                    <small>11 mins ago</small>
-                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-                <div class="toast-body">
-                    Hello, world! This is a toast message.
-                </div>
-            </div>
-        </div>
 </template>
 
 <script>
@@ -57,8 +46,15 @@ export default {
             title : "",
             desc : "",
             userId : 1,
-            trouble : ""
+            trouble: "",
+            troubles : []
         }
+    },
+    created() {
+        axios("http://localhost:3000/api/standby-trouble").then(res => {
+            console.log(res.data)
+            this.troubles = res.data
+        }).catch(err => console.log(err))
     },
     methods : {
         handleSubmit() {
@@ -68,9 +64,17 @@ export default {
                 userId : this.userId,
                 troubleId : +this.trouble
             }).then((res) => {
+
+                axios.put(`http://localhost:3000/api/update-trouble/${+this.trouble}`, {
+                    status : "En reparation"
+                }).then((res) => {
+                    console.log(res.data)
+                }).catch(err => console.log(err))
                 console.log(res.data)
                 this.$router.push({ name : "jobs"})
             }).catch(err => console.log(err))
+
+            
         },
     }
 }

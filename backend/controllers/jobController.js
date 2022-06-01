@@ -15,6 +15,7 @@ exports.index = (req, res, next) => {
             'id',
             'title',
             'desc',
+            'status',
             [sequelize.fn('date_format', sequelize.col('jobs.createdAt'), '%d-%m-%Y %H:%i:%s'), 'createdAt']
         ],
         where : {title : {
@@ -66,6 +67,7 @@ exports.updateJob = (req, res, next) => {
             job.desc = req.body.desc
             job.userId = req.body.userId
             job.troubleId = req.body.troubleId
+            job.status = req.body.status
             return job.save()
         })
         .then(result => res.status(200).json({message : "job updated"}))

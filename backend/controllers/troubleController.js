@@ -57,7 +57,7 @@ exports.storeTrouble = (req, res, next) => {
     
     const trouble = {
         title : req.body.title,
-        status : req.body.status,
+        status : req.body.status || "En attente",
         userId : req.body.userId
     }
     Trouble.create(trouble)
@@ -80,7 +80,6 @@ exports.updateTrouble= (req, res, next) => {
             .then(trouble => {
                 trouble.title = req.body.title
                 trouble.status = req.body.status
-                trouble.desc= req.body.desc
                 trouble.save()
                 res.status(200).json({
                     message : "trouble updated"
@@ -108,4 +107,10 @@ exports.addDetails = (req, res, next) => {
         comment : req.body.desc
     }
     TroubleDetail.create(detail).then(result => res.status(201).json({message : "detail added"}))
+}
+
+exports.findTroublesByStatus = (req, res, next) => {
+    Trouble.findAll({ where : {status : "En attente"}})
+            .then((result) => {res.status(200).json(result)})
+            .catch(err => console.log(err))
 }

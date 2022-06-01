@@ -15,6 +15,7 @@
       <thead class="table-dark">
           <tr>
               <th>ID</th>
+              <th>terminer</th>
               <th>title</th>
               <th>Description</th>
               <th>Panne</th>
@@ -26,6 +27,12 @@
       <tbody>
           <tr v-for="job in jobs" :key="job.id">
             <td>{{ job.id }}</td>
+            <td>
+              <input type="checkbox" 
+                  :checked="job.status"
+                  @click="jobStatus(job.id, job.status)">
+              
+            </td>
             <td>{{ job.title }}</td>
             <td>{{ job.desc }}</td>
             <td>{{ job.trouble.title }}</td>
@@ -57,12 +64,13 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
     name : 'JobList',
     data() {
       return {
         filter : "",
-        page : 1
+        page : 1,
       }
     },
     computed : {
@@ -94,6 +102,11 @@ export default {
       fetchPage(num) {
         console.log("num page : " + num)
         this.$store.dispatch("loadJobs", {page : num, filter : this.filter})
+      },
+      jobStatus(id, isFinish) {
+        axios.put(`http://localhost:3000/api/update-job/${id}`, { status : !isFinish })
+          .then(res => console.log(res))
+          .catch(err => console.log(err.response))
       }
     }
 }

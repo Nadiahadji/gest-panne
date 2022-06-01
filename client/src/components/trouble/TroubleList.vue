@@ -80,16 +80,19 @@ export default {
     },
     created() {
       this.fetchTroubles()
+      
     },
     methods : {
       
       fetchTroubles() {
         this.$store.dispatch("loadTroubles", {page : this.page, filter : this.filter})
+        
       },
       filterTrouble(e) {
         this.filter = e.target.value
         console.log(this.filter)
         this.$store.dispatch("loadTroubles", {page : this.page, filter : this.filter})
+        
       },
       deleteTrouble(id) {
           this.$store.dispatch("deleteTrouble", id)

@@ -9,7 +9,7 @@
                 v-model="title">
         </div>
         <div class="mb-3">
-            <label for="desc" class="form-label">Ref</label>
+            <label for="desc" class="form-label">Description</label>
             <textarea
                 rows="5"
                 class="form-control" 
@@ -22,20 +22,6 @@
                 <button type="submit" class="btn btn-primary">Enregistrer</button>
             </div>
         </form>
-       
-       <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header">
-                    <img src="" class="rounded me-2" alt="...">
-                    <strong class="me-auto">Bootstrap</strong>
-                    <small>11 mins ago</small>
-                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-                <div class="toast-body">
-                    Hello, world! This is a toast message.
-                </div>
-            </div>
-        </div>
 </template>
 
 <script>
@@ -55,7 +41,7 @@ export default {
             axios.post("http://localhost:3000/api/new-trouble", {
                 title : this.title,
                 desc: this.desc,
-                userId : this.userId
+                userId : localStorage.getItem("userId")
             }).then((res) => {
                 console.log(res.data)
                 this.$router.push({ name : "troubles"})
