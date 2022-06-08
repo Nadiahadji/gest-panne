@@ -5,12 +5,21 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="#">
-                        <i class="fa-solid fa-bell"></i> Notification
+                        <div class="position-relative">
+                            <i class="fa-solid fa-bell"></i>
+                            <span class="position-absolute top-0 end-50 rounded-pill translate-middle badge bg-warning">
+                                99+
+                                <span class="visually-hidden">unread messages</span>
+                            </span>
+                            Notification
+                        </div>
+                        
                     </a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-circle-user"></i> {{ userName }}
+                        <i class="fa-solid fa-circle-user"></i>
+                        {{ userName }}
                     </a>
                     <ul class="dropdown-menu open" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item" href="#">Profile</a></li>

@@ -13,6 +13,8 @@ const Trouble = require("./models/trouble")
 const TroubleDetail = require("./models/troubleDetail")
 const Job = require('./models/job')
 const User = require('./models/user')
+const Notification = require('./models/notification')
+const NotfDetail = require('./models/notfDetails')
 
 
 app.use(cors())
@@ -25,9 +27,12 @@ app.use('/api', router)
 //associations
 Eq.belongsTo(Site)
 Trouble.belongsTo(User)
+Trouble.belongsTo(Eq)
 Job.belongsTo(User)
 Job.belongsTo(Trouble)
 Trouble.hasMany(TroubleDetail)
+User.belongsToMany(Notification, { through: NotfDetail });
+Notification.belongsToMany(User, { through: NotfDetail });
 
 sequelize.sync({ altr : true })//{ force : true}
     .then(

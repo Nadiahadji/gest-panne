@@ -32,9 +32,9 @@
                     <option value="user">Operateur</option>
                 </select>
             </div>
-            <div class="mb-3">
-                <label for="status" class="form-label">Etat</label>
-                <input type="checkbox" v-model="isActive" class="form-control" > Active
+            <div class="form-check form-switch mb-3">
+                <label class="form-check-label" for="status">Actif</label>
+                <input class="form-check-input" type="checkbox" role="switch" id="status" v-model="isActive">
             </div>
             <div class="d-grid">
                 <button type="submit" class="btn btn-primary">Enregistrer</button>

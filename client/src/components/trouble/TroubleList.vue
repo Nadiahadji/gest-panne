@@ -17,6 +17,7 @@
               <th>ID</th>
               <th>title</th>
               <th>Status</th>
+              <th>Ref. Equipement</th>
               <th>Cree par</th>
               <th>Date</th>
               <th>action</th>
@@ -27,6 +28,8 @@
             <td>{{ trouble.id }}</td>
             <td>{{ trouble.title }}</td>
             <td>{{ trouble.status }}</td>
+            <td v-if="!!trouble.equipement">{{ trouble.equipement.Mid }}</td>
+            <td v-else> - </td>
             <td v-if="!!trouble.user">{{ trouble.user.fullName }}</td>
             <td v-else> - </td>
             <td>{{ trouble.createdAt }}</td>
@@ -71,7 +74,6 @@ export default {
     },
     computed : {
       troubles() {
-        console.log(this.$store.getters.getTroubles)
         return this.$store.getters.getTroubles
       },
       totalTroubles() {

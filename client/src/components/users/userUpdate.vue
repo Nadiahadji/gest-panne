@@ -18,7 +18,7 @@
             </div>
             <div class="mb-3">
                 <label for="rule" class="form-label">Fonction</label>
-                <select id="rule" v-model="rule">
+                <select id="rule" v-model="rule" class="form-control">
                     <option value="admin">admin</option>
                     <option value="helpdesk">Technicien</option>
                     <option value="user">Operateur</option>

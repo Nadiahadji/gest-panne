@@ -2,6 +2,7 @@
 const Trouble = require('../models/trouble')
 const User = require('../models/user')
 const TroubleDetail = require('../models/troubleDetail')
+const Equipement = require('../models/equipment')
 const sequelize = require('sequelize')
 
 exports.index = (req, res, next) => {
@@ -10,7 +11,7 @@ exports.index = (req, res, next) => {
     const perPage = 8
     const Op = sequelize.Op
     Trouble.findAndCountAll({
-        include : [User, TroubleDetail],
+        include : [User, TroubleDetail, Equipement],
         attributes: [
                     'id',
                     'title',
@@ -58,7 +59,8 @@ exports.storeTrouble = (req, res, next) => {
     const trouble = {
         title : req.body.title,
         status : req.body.status || "En attente",
-        userId : req.body.userId
+        userId : req.body.userId,
+        equipementId : req.body.eId
     }
     Trouble.create(trouble)
             .then(result => {

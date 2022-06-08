@@ -9,6 +9,7 @@ exports.index = (req, res, next) => {
     const userName = req.query.filter || ""
 
     User.findAndCountAll({ 
+        attributes: {exclude: ['password']},
         where : {
             "fullName" : {[Op.like] : `${userName}%`}
         },

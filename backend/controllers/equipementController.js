@@ -5,7 +5,7 @@ const sequelize = require('sequelize')
 exports.index = (req, res, next) => {
     const Op = sequelize.Op
     const currentPage = req.query.page || 1
-    const perPage = 8
+    const perPage = req.query.limit || 8
     const filter = req.query.filter || ""
     Eq.findAndCountAll({
         include: Site,

@@ -17,7 +17,12 @@
                 v-model="desc">
             </textarea>
             </div>
-            
+            <div class="mb-3">
+            <label for="equipement" class="form-label">Ref. Equipement</label> {{ equipement }}
+            <select class="form-control" id="equipement" v-model="equipement">
+                <option v-for="e in equipements" :key="e.id" :value="e.id">{{ e.Mid }}</option>
+            </select>
+            </div>
             <div class="d-grid">
                 <button type="submit" class="btn btn-primary">Enregistrer</button>
             </div>
@@ -33,7 +38,8 @@ export default {
         return {
             title : "",
             desc : "",
-            userId : 1
+            equipement : "",
+            equipements : []
         }
     },
     methods : {
@@ -41,12 +47,21 @@ export default {
             axios.post("http://localhost:3000/api/new-trouble", {
                 title : this.title,
                 desc: this.desc,
-                userId : localStorage.getItem("userId")
+                userId : localStorage.getItem("userId"),
+                eId: this.equipement
             }).then((res) => {
                 console.log(res.data)
                 this.$router.push({ name : "troubles"})
             }).catch(err => console.log(err))
         },
+    },
+    created() {
+        axios.get("http://localhost:3000/api/equipements", {
+            limit : 0
+        }).then((res) => {
+            this.equipements = res.data.rows
+            console.log(this.equipements)
+        }).catch(err => console.log(err))
     }
 }
 </script>
