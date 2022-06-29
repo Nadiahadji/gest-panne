@@ -3,18 +3,24 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="#"><span class="bg-warning">G</span> panne</a>
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#">
-                        <div class="position-relative">
-                            <i class="fa-solid fa-bell"></i>
-                            <span class="position-absolute top-0 end-50 rounded-pill translate-middle badge bg-warning">
-                                99+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="notification" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                
+                            <span class="rounded-pill badge bg-warning">
+                                0
                                 <span class="visually-hidden">unread messages</span>
                             </span>
+                            <i class="fa-solid fa-bell"></i>
                             Notification
-                        </div>
-                        
+            
                     </a>
+                    <ul class="dropdown-menu open px-2" aria-labelledby="notification">
+                        <li><a class="dropdown-item" href="#">Aucune notification</a></li>
+                        <hr>
+                        <li>
+                            <router-link class="dropdown-item" :to="{ name : 'changePassword' }">Tous les notifications</router-link>
+                        </li>
+                    </ul> 
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">

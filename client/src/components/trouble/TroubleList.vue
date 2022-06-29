@@ -40,11 +40,13 @@
                   Detail
                 </router-link>
                 <router-link 
+                  v-if="rule != 'user'"
                   :to="{ name : 'editPanne', params : {id : trouble.id}}"
                   class="btn btn-success btn-sm me-1">
                   Modifier
                 </router-link>
                 <button
+                  v-if="rule != 'user'"
                   @click="deleteTrouble(trouble.id)" 
                   class="btn btn-danger btn-sm"
                 >Supprimer
@@ -69,7 +71,8 @@ export default {
     data() {
       return {
         filter : "",
-        page : 1
+        page : 1,
+        rule : ""
       }
     },
     computed : {
@@ -80,9 +83,13 @@ export default {
         const pages = Math.ceil(this.$store.getters.totalTroubles)
       }
     },
-    created() {
+    async created() {
       this.fetchTroubles()
-      
+      let id = localStorage.getItem("userId")
+      await this.$store.dispatch('setAuth', id)
+      const user = this.$store.getters.getAuth
+      this.rule = user.role
+      console.log(this.rule)
     },
     methods : {
       

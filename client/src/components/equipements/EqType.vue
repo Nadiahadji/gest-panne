@@ -67,7 +67,7 @@ export default {
             type : "",
             site : "",
             desc : "",
-            options : ["Hardware", "Software"]
+            options : ["Matériels", "Logiciels"]
         }
     },
     methods : {

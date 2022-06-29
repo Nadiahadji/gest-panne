@@ -18,9 +18,9 @@
             </textarea>
             </div>
             <div class="mb-3">
-            <label for="equipement" class="form-label">Ref. Equipement</label> {{ equipement }}
+            <label for="equipement" class="form-label">Ref. Equipement</label>
             <select class="form-control" id="equipement" v-model="equipement">
-                <option v-for="e in equipements" :key="e.id" :value="e.id">{{ e.Mid }}</option>
+                <option v-for="e in equipements" :key="e.id" :value="e.id">{{ e.Mid }} - {{ e.name }}</option>
             </select>
             </div>
             <div class="d-grid">

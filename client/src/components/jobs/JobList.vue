@@ -79,7 +79,7 @@ export default {
         return this.$store.getters.getJobs
       },
       totalJobs() {
-        const pages = Math.ceil(this.$store.getters.totalJobs)
+        const pages = Math.ceil(this.$store.getters.totalJobs / 8)
         return pages
       }
     },

@@ -45,7 +45,6 @@ export default {
         return {
             title : "",
             desc : "",
-            userId : 1,
             trouble: "",
             troubles : []
         }
@@ -61,7 +60,7 @@ export default {
             axios.post("http://localhost:3000/api/new-job", {
                 title : this.title,
                 desc: this.desc,
-                userId : this.userId,
+                userId : localStorage.getItem("userId"),
                 troubleId : +this.trouble
             }).then((res) => {
 
