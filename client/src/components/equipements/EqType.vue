@@ -75,7 +75,7 @@ export default {
             console.log(site)
             axios.post("http://localhost:3000/api/new-equipement", {
                 name : this.name,
-                ref : +this.ref,
+                ref : this.ref,
                 type : this.type,
                 desc: this.desc,
                 siteId : +this.site

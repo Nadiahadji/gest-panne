@@ -6,7 +6,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="notification" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 
-                            <span class="rounded-pill badge bg-warning">
+                            <span v-if="unread" class="rounded-pill badge bg-warning">
                                 0
                                 <span class="visually-hidden">unread messages</span>
                             </span>
@@ -15,7 +15,12 @@
             
                     </a>
                     <ul class="dropdown-menu open px-2" aria-labelledby="notification">
-                        <li><a class="dropdown-item" href="#">Aucune notification</a></li>
+                        <li v-if="!notes"><a class="dropdown-item" href="#">Aucune notification</a></li>
+                        <li v-for="note in notes" :key="note.id">
+                            <a class="dropdown-item" href="#">
+                                <p>{{ note.message }}</p>
+                                <small>{{ note.createdAt }}</small>
+                            </a></li>
                         <hr>
                         <li>
                             <router-link class="dropdown-item" :to="{ name : 'changePassword' }">Tous les notifications</router-link>
@@ -41,11 +46,13 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
     name : 'NavMenue',
     data() {
         return {
             //userName : "user",
+            unread : 0
         }
     },
     computed : {
@@ -54,11 +61,16 @@ export default {
             if (user)
                 return user.fullName
             return "user"
+        },
+        notes() {
+            const notes = this.$store.getters.notes
+            console.log(notes)
+            return notes
         }
     },
     created () {
         this.getUser()
-        
+        this.getNotes()
         // userName() {
         //     this.getUser(localStorage.getItem('userId'))
         //     console.log(localStorage.getItem('userId'))
@@ -77,6 +89,9 @@ export default {
         logout() {
             this.$store.dispatch("logout")
             this.$router.push({ path : "/"})
+        },
+        getNotes() {
+            this.$store.dispatch("loadNotes")
         }
     }
 }

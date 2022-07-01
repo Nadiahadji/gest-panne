@@ -10,6 +10,7 @@ const userController = require('../controllers/userController')
 const troubleController = require('../controllers/troubleController')
 const jobController = require('../controllers/jobController');
 const authController = require('../controllers/authController')
+const notifController = require('../controllers/notifController')
 
 //auth router
 router.post('/login', authController.login)
@@ -53,4 +54,7 @@ router.post('/new-job', jobController.storeJob)
 router.put('/update-job/:id', jobController.updateJob)
 router.delete('/delete-job/:id', jobController.deleteJob)
 
+//notifications route
+router.get('/allNotifications', notifController.allNotifications)
+router.post('/addNotification', notifController.addNotification)
 module.exports = router;

@@ -24,6 +24,7 @@
           </tr>
       </thead>
       <tbody>
+          <h5 v-if="!t[0]">Aucune panne</h5>
           <tr v-for="trouble in troubles" :key="trouble.id">
             <td>{{ trouble.id }}</td>
             <td>{{ trouble.title }}</td>
@@ -72,11 +73,14 @@ export default {
       return {
         filter : "",
         page : 1,
-        rule : ""
+        rule : "",
+        t : {}
       }
     },
     computed : {
       troubles() {
+        this.t = { ...this.$store.getters.getTroubles }
+        console.log(this.t[0])
         return this.$store.getters.getTroubles
       },
       totalTroubles() {

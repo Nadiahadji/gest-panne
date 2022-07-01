@@ -69,6 +69,9 @@ export default {
                 }).then((res) => {
                     console.log(res.data)
                 }).catch(err => console.log(err))
+                axios.post("http://localhost:3000/api/addNotification", {
+                    note : `Nouveau travail : ${this.title}`
+                })
                 console.log(res.data)
                 this.$router.push({ name : "jobs"})
             }).catch(err => console.log(err))

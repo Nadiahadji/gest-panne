@@ -3,7 +3,8 @@ const sequelize = require('../config/config.js')
 
 const Equipement = sequelize.define('equipements', {
     Mid : {
-        type : Sequelize.STRING
+        type : Sequelize.STRING,
+        unique : true
     },
     name : {
         type : Sequelize.STRING

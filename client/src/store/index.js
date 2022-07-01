@@ -5,6 +5,7 @@ import users from './modules/users/index'
 import equipements from './modules/equipement/index'
 import trouble from './modules/trouble/index'
 import job from './modules/job/index'
+import notification from './modules/notification/index'
 
 const store = createStore({
     modules: {
@@ -13,7 +14,8 @@ const store = createStore({
         users,
         equipements,
         trouble,
-        job
+        job,
+        notification
     }
 })
 

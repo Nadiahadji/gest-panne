@@ -49,9 +49,12 @@ export default {
                 desc: this.desc,
                 userId : localStorage.getItem("userId"),
                 eId: this.equipement
-            }).then((res) => {
-                console.log(res.data)
-                this.$router.push({ name : "troubles"})
+            }).then(() => {
+                axios.post("http://localhost:3000/api/addNotification", {
+                note : `Nouvelle panne : ${this.title}`
+                }).then(() => this.$router.push({ name : "troubles"}))
+                .catch(err => console.log(err.response))
+                
             }).catch(err => console.log(err))
         },
     },

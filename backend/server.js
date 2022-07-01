@@ -34,7 +34,7 @@ Trouble.hasMany(TroubleDetail)
 User.belongsToMany(Notification, { through: NotfDetail });
 Notification.belongsToMany(User, { through: NotfDetail });
 
-sequelize.sync({ force : true })//{ force : true} for drop all table and create again
+sequelize.sync({ altr : true })//{ force : true} for drop all table and create again
     .then(
         res => {
             app.listen(3000)
